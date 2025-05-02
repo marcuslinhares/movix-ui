@@ -51,9 +51,22 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "local": {
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "local"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -63,6 +76,9 @@
             },
             "development": {
               "buildTarget": "movix-ui:build:development"
+            },
+            "local": {
+              "buildTarget": "movix-ui:build:local"
             }
           },
           "defaultConfiguration": "development"
