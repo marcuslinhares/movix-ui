@@ -1,0 +1,40 @@
+<div class="card">
+  <p class="m-0 mb-0 text-lg font-semibold text-black dark:text-white pl-13">{{title}}</p>
+  <p-carousel 
+    [value]="movies" 
+    [numVisible]="3" 
+    [numScroll]="3" 
+    [circular]="true" 
+    [responsiveOptions]="responsiveOptions" 
+    [autoplayInterval]="3000"
+    [showIndicators]="false"
+  >
+    <ng-template let-movie #item>
+      <div class="m-2">
+        <div class="relative rounded-xl overflow-hidden aspect-[2/3] max-h-[220px] shadow-md cursor-pointer"
+        (click)="goToDetails(movie.id)"
+        >
+          <img 
+            [src]="getImageUrl(movie.poster_path)" 
+            [alt]="movie.title" 
+            class="w-full h-full object-cover"
+          />
+          <p-tag 
+            [value]="(movie.vote_average | number:'1.1-1') + ''" 
+            severity="info" 
+            class="absolute left-2 top-2 z-10 text-black" 
+          />
+          <div class="absolute right-2 bottom-2 z-10">
+            <p-button 
+              icon="pi pi-heart" 
+              severity="secondary" 
+              [style]="{ fontSize: '0.1rem', padding: '0rem', cursor: 'pointer' }"
+              (click)="$event.stopPropagation()" 
+            />
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+  <p-divider />
+</div>

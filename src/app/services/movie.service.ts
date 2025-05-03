@@ -27,8 +27,4 @@ export class MovieService {
       map(response => response.results)
     );
   }
-
-  getImageUrl(path: string): string {
-    return `${this.baseImageUrl}${path}`;
-  }
 }
