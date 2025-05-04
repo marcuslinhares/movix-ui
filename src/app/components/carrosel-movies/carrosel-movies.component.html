@@ -1,5 +1,5 @@
 <div class="card">
-  <p class="m-0 mb-0 text-lg font-semibold text-black dark:text-white pl-13">{{title}}</p>
+  <p class="m-0 mb-0 text-lg font-semibold pl-2">{{title}}</p>
   <p-carousel 
     [value]="movies" 
     [numVisible]="3" 
@@ -11,7 +11,7 @@
   >
     <ng-template let-movie #item>
       <div class="m-2">
-        <div class="relative rounded-xl overflow-hidden aspect-[2/3] max-h-[220px] shadow-md cursor-pointer"
+        <div class="relative rounded-xl overflow-hidden aspect-[2/3] min-h-[150px] max-h-[250px] shadow-md cursor-pointer"
         (click)="goToDetails(movie.id)"
         >
           <img 
@@ -20,16 +20,17 @@
             class="w-full h-full object-cover"
           />
           <p-tag 
-            [value]="(movie.vote_average | number:'1.1-1') + ''" 
-            severity="info" 
-            class="absolute left-2 top-2 z-10 text-black" 
+            [value]="(movie.vote_average | number:'1.1-1') + ''"
+            severity="contrast"
+            class="absolute left-2 top-2 z-10 text-xs sm:text-sm md:text-base px-2 py-1"
           />
+        
           <div class="absolute right-2 bottom-2 z-10">
             <p-button 
-              icon="pi pi-heart" 
-              severity="secondary" 
-              [style]="{ fontSize: '0.1rem', padding: '0rem', cursor: 'pointer' }"
-              (click)="$event.stopPropagation()" 
+              icon="pi pi-heart"
+              severity="contrast"
+              class="text-xs sm:text-sm md:text-base p-1"
+              (click)="$event.stopPropagation()"
             />
           </div>
         </div>

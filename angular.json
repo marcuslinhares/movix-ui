@@ -101,6 +101,7 @@
               }
             ],
             "styles": [
+              "node_modules/@primeng/themes/aura/theme.css",
               "src/styles.css"
             ],
             "scripts": []
