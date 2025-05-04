@@ -1,6 +1,7 @@
 <div class="card">
     <p-menubar [model]="items">
         <ng-template pTemplate="end">
+            <input class="mr-3" placeholder="Buscar" pInputText id="on_label" [(ngModel)]="searchQuery" autocomplete="off" />
             <p-button icon="pi pi-moon" severity="contrast" (click)="toggleDarkMode()"></p-button>
         </ng-template>
     </p-menubar>

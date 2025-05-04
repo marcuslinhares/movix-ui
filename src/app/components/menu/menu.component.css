@@ -1,0 +1,3 @@
+:host ::ng-deep input.p-inputtext {
+    --p-inputtext-focus-border-color: white;
+}
