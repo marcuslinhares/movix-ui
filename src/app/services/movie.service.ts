@@ -11,7 +11,6 @@ import { map, Observable } from 'rxjs';
 export class MovieService {
   private readonly apiKey = environment.apiKey;
   private readonly baseUrl = 'https://api.themoviedb.org/3';
-  private readonly baseImageUrl = 'https://image.tmdb.org/t/p/original';
   private readonly LANGUAGE = 'pt-BR'
 
   constructor(private http: HttpClient) { }
