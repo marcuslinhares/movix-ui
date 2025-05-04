@@ -1,5 +1,6 @@
 <main-layout>
     <carrosel-header [movies]="emCartazMovies"></carrosel-header>
-    <div style="margin: 20px 0;"></div>
+    <movie-carousel [title]="'Melhor Avaliados'" [movies]="topRatedMovies"></movie-carousel>
+    <movie-carousel [title]="'Em Breve'" [movies]="upcomingMovies"></movie-carousel>
     <movie-carousel [title]="'Mais Populares'" [movies]="popularMovies"></movie-carousel>
 </main-layout>

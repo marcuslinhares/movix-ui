@@ -14,16 +14,26 @@ import { CarroselHeaderComponent } from '../../components/carrosel-header/carros
 export class MovieListComponent {
   popularMovies: Movie[] = [];
   emCartazMovies: Movie[] = [];
+  upcomingMovies: Movie[] = [];
+  topRatedMovies: Movie[] = [];
 
   constructor(private movieService: MovieService) {}
 
   ngOnInit() {
-    this.movieService.getPopularMovies().subscribe(movies => {
+    this.movieService.getMovies('popular').subscribe(movies => {
       this.popularMovies = movies;
     });
 
-    this.movieService.getPopularMovies().subscribe(movies => {
+    this.movieService.getMovies('now_playing').subscribe(movies => {
       this.emCartazMovies = movies;
+    });
+
+    this.movieService.getMovies('upcoming').subscribe(movies => {
+      this.upcomingMovies = movies;
+    });
+
+    this.movieService.getMovies('top_rated').subscribe(movies => {
+      this.topRatedMovies = movies;
     });
   }
 }

@@ -15,20 +15,8 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
-  getPopularMovies(page: number = 1): Observable<Movie[]> {
-    const url = `${this.baseUrl}/movie/popular`;
-    const params = new HttpParams()
-      .set('api_key', this.apiKey)
-      .set('language', this.LANGUAGE)
-      .set('page', page.toString());
-
-    return this.http.get<MovieResponse>(url, { params }).pipe(
-      map(response => response.results)
-    );
-  }
-
-  getEmCartazMovies(page: number = 1): Observable<Movie[]> {
-    const url = `${this.baseUrl}/movie/now_playing`;
+  getMovies(urlMovies: string, page: number = 1): Observable<Movie[]> {
+    const url = `${this.baseUrl}/movie/${urlMovies}`;
     const params = new HttpParams()
       .set('api_key', this.apiKey)
       .set('language', this.LANGUAGE)
