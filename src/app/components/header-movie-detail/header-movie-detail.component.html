@@ -1,0 +1,30 @@
+<p-card>
+    <div *ngIf="movie" class="flex flex-row gap-4 flex-wrap md:flex-nowrap">
+        <img [src]="getImageUrl(movie.poster_path)" alt="{{ movie.title }}"
+            class="w-full md:w-3/12 h-auto object-cover rounded-xl shadow" />
+
+        <div class="flex flex-col gap-2 m-10">
+            <h2 class="text-2xl font-semibold">{{ movie.title }}</h2>
+            <p class="text-gray-600">
+                {{ movie.release_date | date: 'longDate' }} |
+                <strong>Média de Votos:</strong> {{ movie.vote_average }} ({{ movie.vote_count }} votos)
+            </p>
+            <p>{{ movie.overview }}</p>
+
+            <div class="mt-3 space-y-1">
+                <p><strong>Gêneros:</strong> {{ genres }}</p>
+                <p><strong>Duração:</strong> {{ movie.runtime }} min</p>
+                <p><strong>Idioma Original:</strong> {{ movie.original_language | uppercase }}</p>
+                <p><strong>Idiomas Falados:</strong> {{ spokenLanguages }}</p>
+                <p><strong>Países de Produção:</strong> {{ countries }}</p>
+                <p><strong>Estúdios:</strong> {{ studios }}</p>
+                <p *ngIf="movie.homepage">
+                    <strong>Site Oficial: </strong>
+                    <a [href]="movie.homepage" target="_blank" class="text-primary underline">Visitar</a>
+                </p>
+                <p><strong>Orçamento:</strong> {{ movie.budget | currency:'USD':'symbol' }}</p>
+                <p><strong>Receita:</strong> {{ movie.revenue | currency:'USD':'symbol' }}</p>
+            </div>
+        </div>
+    </div>
+</p-card>

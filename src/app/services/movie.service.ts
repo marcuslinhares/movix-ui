@@ -4,6 +4,8 @@ import { Movie } from '../models/movie.model';
 import { environment } from '../../environments/environment';
 import { MovieResponse } from '../models/DTOS/movie.response';
 import { map, Observable } from 'rxjs';
+import { CreditsResponse } from '../models/DTOS/credits.response';
+import { MovieDetail } from '../models/DTOS/movie-detail.response';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +28,25 @@ export class MovieService {
       map(response => response.results)
     );
   }
+
+  getMovieDetail(movieId: number): Observable<MovieDetail> {
+    const url = `${this.baseUrl}/movie/${movieId}`;
+    const params = new HttpParams()
+      .set('api_key', this.apiKey)
+      .set('language', this.LANGUAGE);
+  
+    return this.http.get<MovieDetail>(url, { params });
+  }
+
+  getMovieCredits(movieId: number) {
+    const url = `${this.baseUrl}/movie/${movieId}/credits`;
+    const params = new HttpParams()
+      .set('api_key', this.apiKey)
+      .set('language', this.LANGUAGE);
+  
+    return this.http.get<CreditsResponse>(url, { params }).pipe(
+      map(response => response.cast)
+    );
+  }
+  
 }
