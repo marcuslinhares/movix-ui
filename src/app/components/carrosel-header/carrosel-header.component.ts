@@ -21,8 +21,8 @@ export class CarroselHeaderComponent implements OnInit {
     return `https://image.tmdb.org/t/p/w1280${path}`;
   }
 
-  goToDetails(id: number) {
-    this.router.navigate(['/filmes', id]);
+  goToDetails(movieId: number): void {
+    this.router.navigate(['/movie', movieId]);
   }
 
   ngOnInit() {}

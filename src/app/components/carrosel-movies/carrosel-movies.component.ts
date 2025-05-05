@@ -14,7 +14,7 @@ import { DividerModule } from 'primeng/divider';
   standalone: true,
   imports: [DividerModule, CardModule, CommonModule, CarouselModule, ButtonModule, TagModule]
 })
-export class MovieCarouselComponent implements OnInit {
+export class MovieCarouselComponent {
   @Input() title: string = '';
   @Input() movies: Movie[] = [];
 
@@ -33,9 +33,7 @@ export class MovieCarouselComponent implements OnInit {
     return `https://image.tmdb.org/t/p/w500${path}`;
   }
 
-  goToDetails(id: number) {
-    this.router.navigate(['/filmes', id]);
+  goToDetails(movieId: number): void {
+    this.router.navigate(['/movie', movieId]);
   }
-
-  ngOnInit() { }
 }
