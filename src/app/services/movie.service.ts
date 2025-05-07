@@ -2,10 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Movie } from '../models/movie.model';
 import { environment } from '../../environments/environment';
-import { MovieResponse } from '../models/DTOS/movie.response';
 import { map, Observable } from 'rxjs';
-import { CreditsResponse } from '../models/DTOS/credits.response';
+import { AtorResponse } from '../models/DTOS/atores.response';
 import { MovieDetail } from '../models/DTOS/movie-detail.response';
+import { MovieResponse } from '../models/DTOS/movie.response';
+import { Ator } from '../models/ator.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,13 +39,13 @@ export class MovieService {
     return this.http.get<MovieDetail>(url, { params });
   }
 
-  getMovieCredits(movieId: number) {
+  getMovieCredits(movieId: number): Observable<Ator[]>{
     const url = `${this.baseUrl}/movie/${movieId}/credits`;
     const params = new HttpParams()
       .set('api_key', this.apiKey)
       .set('language', this.LANGUAGE);
   
-    return this.http.get<CreditsResponse>(url, { params }).pipe(
+    return this.http.get<AtorResponse>(url, { params }).pipe(
       map(response => response.cast)
     );
   }
@@ -59,6 +60,5 @@ export class MovieService {
   
     return this.http.get<MovieResponse>(url, { params });
   }
-  
   
 }
