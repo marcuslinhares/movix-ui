@@ -5,6 +5,9 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
+import { GeneroService } from '../../services/genero.service';
+import { Router } from '@angular/router';
+import { Genero } from '../../models/genero.model';
 
 @Component({
     selector: 'menu-bar',
@@ -17,27 +20,32 @@ export class MenuComponent implements OnInit {
     items: MenuItem[] | undefined;
     searchQuery: string = '';
 
+    constructor(private generoService: GeneroService, private router: Router) { }
+
     ngOnInit() {
-        this.items = [
-            {
-                label: 'Início',
-                icon: 'pi pi-home',
-                routerLink: ['/']
-            },
-            {
-                label: 'Categorias',
-                icon: 'pi pi-th-large',
-                items: [
-                    { label: 'Ação', routerLink: ['/genero/acao'] },
-                    { label: 'Comédia', routerLink: ['/genero/comedia'] },
-                    { label: 'Drama', routerLink: ['/genero/drama'] },
-                ]
-            },
-            {
-                label: 'Sobre',
-                icon: 'pi pi-info-circle'
-            }
-        ];
+        this.generoService.getGeneros().subscribe(response => {
+            const categorias = response.genres.map((genre: Genero) => ({
+                label: genre.name,
+                command: () => this.router.navigate(['/movies/genero', genre.id])
+            }));
+
+            this.items = [
+                {
+                    label: 'Início',
+                    icon: 'pi pi-home',
+                    routerLink: ['/']
+                },
+                {
+                    label: 'Categorias',
+                    icon: 'pi pi-th-large',
+                    items: categorias
+                },
+                {
+                    label: 'Sobre',
+                    icon: 'pi pi-info-circle'
+                }
+            ];
+        });
     }
 
     toggleDarkMode() {
