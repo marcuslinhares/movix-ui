@@ -1,0 +1,12 @@
+<main-layout>
+    <div class="min-h-screen grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-3 p-4" infiniteScroll
+        [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300" (scrolled)="onScroll()">
+        <div *ngFor="let movie of movies">
+            <movie-card [movie]="movie" />
+        </div>
+    </div>
+
+    <div class="text-center py-4" *ngIf="isLoading">
+        <p>Carregando...</p>
+    </div>
+</main-layout>

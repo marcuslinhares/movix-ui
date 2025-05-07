@@ -48,5 +48,17 @@ export class MovieService {
       map(response => response.cast)
     );
   }
+
+  getMoviesGenero(generoId: number, page: number = 1): Observable<MovieResponse> {
+    const url = `${this.baseUrl}/discover/movie`;
+    const params = new HttpParams()
+      .set('api_key', this.apiKey)
+      .set('language', this.LANGUAGE)
+      .set('with_genres', generoId)
+      .set('page', page.toString());
+  
+    return this.http.get<MovieResponse>(url, { params });
+  }
+  
   
 }
