@@ -20,6 +20,7 @@
     "@angular/router": "^19.2.0",
     "@primeng/themes": "^19.1.2",
     "@tailwindcss/postcss": "^4.1.5",
+    "ngx-infinite-scroll": "^19.0.0",
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^19.1.2",
