@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Movie } from '../../models/movie.model';
 import { MovieService } from '../../services/movie.service';
 import { MovieCarouselComponent } from '../../components/carrosel-movies/carrosel-movies.component';
@@ -11,7 +11,7 @@ import { CarroselHeaderComponent } from '../../components/carrosel-header/carros
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.css'
 })
-export class MovieListComponent {
+export class MovieListComponent implements OnInit{
   popularMovies: Movie[] = [];
   emCartazMovies: Movie[] = [];
   upcomingMovies: Movie[] = [];

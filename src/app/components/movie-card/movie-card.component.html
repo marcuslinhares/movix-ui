@@ -1,0 +1,13 @@
+<div class="m-2" *ngIf="movie">
+    <div class="relative rounded-xl overflow-hidden aspect-[2/3] min-h-[150px] max-h-[250px] shadow-md cursor-pointer"
+        (click)="goToDetails(movie.id)">
+        <img [src]="getImageUrl(movie.poster_path)" [alt]="movie.title" class="w-full h-full object-cover" />
+        <p-tag [value]="(movie.vote_average | number:'1.1-1') + ''" severity="contrast"
+            class="absolute left-2 top-2 z-10 text-xs sm:text-sm md:text-base px-2 py-1" />
+
+        <div class="absolute right-2 bottom-2 z-10">
+            <p-button icon="pi pi-heart" severity="contrast" class="text-xs sm:text-sm md:text-base p-1"
+                (click)="$event.stopPropagation()" />
+        </div>
+    </div>
+</div>
