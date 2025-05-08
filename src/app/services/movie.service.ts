@@ -60,5 +60,16 @@ export class MovieService {
   
     return this.http.get<MovieResponse>(url, { params });
   }
-  
+
+  buscarFilmes(query: string): Observable<Movie[]>{
+    const url = `${this.baseUrl}/search/movie`;
+    const params = new HttpParams()
+    .set('api_key', this.apiKey)
+    .set('language', this.LANGUAGE)
+    .set('query', query);
+
+    return this.http.get<MovieResponse>(url, { params }).pipe(
+      map(response => response.results)
+    );
+  }
 }
