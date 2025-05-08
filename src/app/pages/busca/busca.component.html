@@ -1,0 +1,9 @@
+<main-layout>
+    <p class="mt-5 ml-5 mb-0 text-lg font-semibold pl-2">Buscando por: {{query}}</p>
+
+    <div class="min-h-screen grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-3 p-4">
+        <div *ngFor="let movie of movies">
+            <movie-card [movie]="movie"/>
+        </div>
+    </div>
+</main-layout>
