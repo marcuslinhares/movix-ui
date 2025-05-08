@@ -7,7 +7,6 @@ import { MainLayoutComponent } from '../../layouts/main-layout/main-layout.compo
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { GeneroService } from '../../services/genero.service';
-import { Genero } from '../../models/genero.model';
 
 @Component({
   selector: 'movie-list-genero',
