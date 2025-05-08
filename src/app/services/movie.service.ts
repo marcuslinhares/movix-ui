@@ -35,16 +35,16 @@ export class MovieService {
     const params = new HttpParams()
       .set('api_key', this.apiKey)
       .set('language', this.LANGUAGE);
-  
+
     return this.http.get<MovieDetail>(url, { params });
   }
 
-  getMovieCredits(movieId: number): Observable<Ator[]>{
+  getMovieCredits(movieId: number): Observable<Ator[]> {
     const url = `${this.baseUrl}/movie/${movieId}/credits`;
     const params = new HttpParams()
       .set('api_key', this.apiKey)
       .set('language', this.LANGUAGE);
-  
+
     return this.http.get<AtorResponse>(url, { params }).pipe(
       map(response => response.cast)
     );
@@ -57,19 +57,18 @@ export class MovieService {
       .set('language', this.LANGUAGE)
       .set('with_genres', generoId)
       .set('page', page.toString());
-  
+
     return this.http.get<MovieResponse>(url, { params });
   }
 
-  buscarFilmes(query: string): Observable<Movie[]>{
+  buscarFilmes(query: string, page: number = 1): Observable<MovieResponse> {
     const url = `${this.baseUrl}/search/movie`;
     const params = new HttpParams()
-    .set('api_key', this.apiKey)
-    .set('language', this.LANGUAGE)
-    .set('query', query);
+      .set('api_key', this.apiKey)
+      .set('language', this.LANGUAGE)
+      .set('query', query)
+      .set('page', page.toString());
 
-    return this.http.get<MovieResponse>(url, { params }).pipe(
-      map(response => response.results)
-    );
+    return this.http.get<MovieResponse>(url, { params });
   }
 }
