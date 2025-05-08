@@ -14,20 +14,24 @@ import { ElencoComponent } from '../../components/elenco/elenco.component';
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css'
 })
-export class MovieDetailsComponent implements OnInit{
-    movie: MovieDetail | null = null;
-    elenco!: Ator[];
+export class MovieDetailsComponent implements OnInit {
+  movie: MovieDetail | null = null;
+  elenco!: Ator[];
 
-  constructor(private route: ActivatedRoute, private movieService: MovieService) {}
+  constructor(private route: ActivatedRoute, private movieService: MovieService) { }
 
   ngOnInit(): void {
-    const movieId = Number(this.route.snapshot.paramMap.get('id'));
-    this.movieService.getMovieDetail(movieId).subscribe(movie => {
-      this.movie = movie;
-    });
+    this.route.paramMap.subscribe(params => {
+      const movieId = Number(params.get('id'));
+      if (movieId) {
+        this.movieService.getMovieDetail(movieId).subscribe(movie => {
+          this.movie = movie;
+        });
 
-    this.movieService.getMovieCredits(movieId).subscribe(elenco => {
-      this.elenco = elenco;
+        this.movieService.getMovieCredits(movieId).subscribe(elenco => {
+          this.elenco = elenco;
+        });
+      }
     });
   }
 }

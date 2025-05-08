@@ -8,6 +8,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { GeneroService } from '../../services/genero.service';
 import { Router } from '@angular/router';
 import { Genero } from '../../models/genero.model';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
     selector: 'menu-bar',
@@ -20,7 +21,7 @@ export class MenuComponent implements OnInit {
     items: MenuItem[] | undefined;
     searchQuery: string = '';
 
-    constructor(private generoService: GeneroService, private router: Router) { }
+    constructor(private movieService: MovieService, private generoService: GeneroService, private router: Router) { }
 
     ngOnInit() {
         this.generoService.getGeneros().subscribe(response => {
@@ -41,9 +42,10 @@ export class MenuComponent implements OnInit {
                     items: categorias
                 },
                 {
-                    label: 'Sobre',
-                    icon: 'pi pi-info-circle'
-                }
+                    label: 'Descubra',
+                    icon: 'pi pi-sparkles',
+                    command: () => this.sortearFilme()
+                }                
             ];
         });
     }
@@ -61,4 +63,13 @@ export class MenuComponent implements OnInit {
             this.router.navigate(['/buscar', query]);
         }
     }
+
+    sortearFilme() {
+        this.movieService.getMovies("popular").subscribe(movies => {
+            const filmes = movies;
+            const aleatorio = filmes[Math.floor(Math.random() * filmes.length)];
+            this.router.navigate(['/movie', aleatorio.id]);
+        });
+    }
+    
 }
