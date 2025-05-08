@@ -54,4 +54,11 @@ export class MenuComponent implements OnInit {
             element.classList.toggle('my-app-dark');
         }
     }
+
+    buscarFilmes() {
+        const query = this.searchQuery.trim();
+        if (query) {
+            this.router.navigate(['/buscar', query]);
+        }
+    }
 }

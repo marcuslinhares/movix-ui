@@ -10,3 +10,11 @@
 :host ::ng-deep .p-menu {
     z-index: 1100 !important;
 }
+
+::ng-deep .responsive-menubar .p-menubar-end {
+    flex-wrap: wrap;
+}
+
+::ng-deep .responsive-menubar .p-inputtext {
+    min-width: 150px;
+}

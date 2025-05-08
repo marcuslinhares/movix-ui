@@ -1,8 +1,21 @@
 <div class="card">
-    <p-menubar [model]="items">
+    <p-menubar 
+        [model]="items"
+        [style]="{ 'flex-wrap': 'wrap' }"
+        styleClass="responsive-menubar"
+    >   
         <ng-template pTemplate="end">
-            <input class="mr-3" placeholder="Buscar" pInputText id="on_label" [(ngModel)]="searchQuery" autocomplete="off" />
-            <p-button icon="pi pi-moon" severity="contrast" (click)="toggleDarkMode()"></p-button>
-        </ng-template>
+            <div class="flex items-center gap-2 flex-wrap">
+              <input
+                class="p-inputtext-sm md:p-iputtext sm:w-auto"
+                placeholder="Buscar"
+                pInputText
+                [(ngModel)]="searchQuery"
+                (keydown.enter)="buscarFilmes()"
+                autocomplete="true"
+              />
+              <p-button icon="pi pi-moon" severity="contrast" (click)="toggleDarkMode()"></p-button>
+            </div>
+          </ng-template>
     </p-menubar>
 </div>
