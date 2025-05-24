@@ -2,11 +2,9 @@ FROM nginx:stable-alpine
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY dist/movix/ /usr/share/nginx/html
+COPY dist/movix-ui/browser/ /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
-
-RUN chmod -R 755 /usr/share/nginx/html
 
 EXPOSE 80
 
