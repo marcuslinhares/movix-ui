@@ -6,43 +6,60 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
+    name: Build, Push e Deploy Movix
     runs-on: ubuntu-latest
+
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository_owner }}/movix
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Instalar Node.js
+      - name: Cache de dependências npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Instalar dependências
-        run: npm install
-
-      - name: Injetar API Key no environment
+      - name: Injetar variável de ambiente no Angular
         run: |
+          set -e
           echo "export const environment = {" > src/environments/environment.ts
-          echo "  apiKey: '${{ secrets.API_KEY }}'" >> src/environments/environment.ts
+          echo "  apiKey: '${{ secrets.API_KEY }}'," >> src/environments/environment.ts
           echo "};" >> src/environments/environment.ts
 
-      - name: Build do Angular
-        run: npm run build -- --configuration=production
+      - name: Instalar dependências e build Angular
+        run: |
+          set -e
+          npm ci
+          npm run build -- --configuration=production
 
-      - name: Enviar arquivos para a VPS
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          source: "dist/*"
-          target: "/var/www/movix"
+      - name: Login no GHCR
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login $REGISTRY -u ${{ github.repository_owner }} --password-stdin
 
-      - name: Reiniciar Caddy
-        uses: appleboy/ssh-action@v0.1.7
+      - name: Build e push da imagem Docker
+        uses: docker/build-push-action@v5
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: caddy reload --config /etc/caddy/Caddyfile
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Disparar webhook de deploy no Dokploy
+        if: success()
+        run: |
+          set -e
+          curl --fail -X POST -H "User-Agent: GitHubActions" "${{ secrets.DOKPLOY_WEBHOOK_URL }}"
