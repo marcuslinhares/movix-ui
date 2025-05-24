@@ -43,6 +43,9 @@ jobs:
           set -e
           npm ci
           npm run build -- --configuration=production
+          
+      - name: Listar conteúdo do dist
+        run: ls -R dist
 
       - name: Login no GHCR
         run: |
